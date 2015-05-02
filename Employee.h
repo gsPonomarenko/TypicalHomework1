@@ -1,243 +1,69 @@
+// Copyright 2015 <Grigory Ponomarenko>
+
+#pragma once
+
 #include <iostream>
 #include <memory>
 #include <string>
 #include <list>
 
-using namespace std;
-
-
 class Employee{
-public:
-	Employee();
-	Employee(string fName, string lName, string pos, int sen, int sal);
-	Employee(string fName, string lName, string pos, int sen, int sal, float in, bool charged);
+ public:
+    Employee();
 
-	Employee(Employee& E);
-	Employee(Employee* pE);
+    Employee(const std::string& fName, const std::string& lName,
+             const std::string& pos, int sen, int sal);
+    Employee(const std::string& fName, const std::string& lName,
+             const std::string& pos, int sen, int sal,
+             float in, bool charged);
 
-	void setAllParametrs(string fName, string lName, string pos, int sen, int sal, float in, bool charged);
-	void getAllParametrs(string& fName, string& lName, string& pos, int& sen, int& sal, float& in, bool& charged);
+    Employee(const Employee& E);
+    explicit Employee(Employee* pE);
 
-	void setPosition(string pos);
-	string getPosition() const;
+    void setAllParametrs(const std::string& fName, const std::string& lName,
+                         const std::string& pos, int sen, int sal,
+                         float in, bool charged);
+    void getAllParametrs(std::string* fName, std::string* lName,
+                         std::string* pos, int* sen, int* sal,
+                         float* in, bool* charged) const;
 
-	void setSenyority(int sen);
-	int getSenyority() const;
+    void setPosition(const std::string& pos);
+    std::string getPosition() const;
 
-	void setSalary(int sal);
-	int getSalary() const;
+    void setSenyority(int sen);
+    int getSenyority() const;
 
-	void setIndex(float in);
-	float getIndex() const;
+    void setSalary(int sal);
+    int getSalary() const;
 
-	void setIfCharged(bool charged);
-	bool getIfCharged() const;
+    void setIndex(float in);
+    float getIndex() const;
 
-	friend bool operator ==(const Employee& Emp1, const Employee& Emp2);
-	Employee& operator =(Employee& E);
-	friend Employee operator+(Employee& E1, Employee& E2);
-	friend ostream& operator <<(ostream& os, const Employee& Emp);
+    void setIfCharged(bool charged);
+    bool getIfCharged() const;
 
-	virtual void setName(string firstName, string lastName);
-	virtual void getName(string& fName, string& lName) const;
-	virtual void printOn() const;
-protected:
-	string firstName;
-	string lastName;
-	string position;
+    friend bool operator ==(const Employee& Emp1, const Employee& Emp2);
+    Employee& operator =(const Employee& E);
+    friend Employee operator+(const Employee& E1, const Employee& E2);
+    friend std::ostream& operator <<(std::ostream& os, const Employee& Emp);
 
-	/** Senyority (стаж) -- год начала работы в компании*/
-	int senyority;
+    virtual void setName(const std::string& firstName,
+                         const std::string& lastName);
+    virtual void getName(std::string* fName, std::string* lName) const;
+    virtual void printOn() const;
 
-	/** salary (оклад) -- фиксированная базовая ставка в рублях
-	index (коэффициент) -- индексация зарплаты в большую или меньшую сторону */
-	int salary;
-	float index;
-	bool ifCharged;
+ protected:
+    std::string firstName;
+    std::string lastName;
+    std::string position;
+
+    /** Senyority (����) -- year of the beginnning
+                            of the work in the company */
+    int senyority;
+
+    /** salary (�����) -- fixed salary in rubles
+    index (�����������) -- salary index in percents */
+    int salary;
+    float index;
+    bool ifCharged;
 };
-
-Employee::Employee(){
-	firstName = "";
-	lastName = "";
-	position = "";
-
-	senyority = 0;
-	salary = 0;
-	index = 0;
-	ifCharged = 0;
-}
-
-Employee::Employee(string fName, string lName, string pos, int sen, int sal){
-	firstName = fName;
-	lastName = lName;
-	position = pos;
-
-	senyority = sen;
-	salary = sal;
-	index = 0;
-	ifCharged = 0;
-}
-
-Employee::Employee(string fName, string lName, string pos, int sen, int sal, float in, bool charged){
-	firstName = fName;
-	lastName = lName;
-	position = pos;
-
-	senyority = sen;
-	salary = sal;
-	index = in;
-	ifCharged = charged;
-}
-
-Employee::Employee(Employee& E){
-	E.getName(firstName, lastName);
-	position = E.getPosition();
-
-	senyority = E.getSenyority();
-	salary = E.getSalary();
-	index = E.getIndex();
-	ifCharged = E.getIfCharged();
-}
-
-Employee::Employee(Employee* pE){
-	pE->getName(firstName, lastName);
-	position = pE->getPosition();
-
-	senyority = pE->getSenyority();
-	salary = pE->getSalary();
-	index = pE->getIndex();
-	ifCharged = pE->getIfCharged();
-}
-
-void Employee::setAllParametrs(string fName, string lName, string pos, int sen, int sal, float in, bool charged){
-	firstName = fName;
-	lastName = lName;
-	position = pos;
-
-	senyority = sen;
-	salary = sal;
-	index = in;
-	ifCharged = charged;
-}
-
-void Employee::getAllParametrs(string& fName, string& lName, string& pos, int& sen, int& sal, float& in, bool& charged){
-	fName = firstName;
-	lName = lastName;
-	pos = position;
-
-	sen = senyority;
-	sal = salary;
-	in = index;
-	charged = ifCharged;
-}
-
-void Employee::setPosition(string pos){
-	position = pos;
-}
-string Employee::getPosition() const{
-	return position;
-}
-
-void Employee::setSenyority(int sen){
-	senyority = sen;
-}
-int Employee::getSenyority() const{
-	return senyority;
-}
-
-void Employee::setSalary(int sal){
-	salary = sal;
-}
-int Employee::getSalary() const{
-	return salary;
-}
-
-void Employee::setIndex(float in){
-	index = in;
-}
-float Employee::getIndex() const{
-	return index;
-}
-
-void Employee::setIfCharged(bool charged){
-	ifCharged = charged;
-}
-bool Employee::getIfCharged() const{
-	return ifCharged;
-}
-
-void Employee::setName(string fName, string lName){
-	firstName = fName;
-	lastName = lName;
-}
-void Employee::getName(string& fName, string& lName) const{
-	fName = firstName;
-	lName = lastName;
-}
-
-bool operator ==(const Employee& Emp1, const Employee& Emp2){
-	if (Emp1.firstName == Emp2.firstName
-		&& Emp1.lastName == Emp2.lastName
-		&& Emp1.position == Emp2.position
-		&& Emp1.senyority == Emp2.senyority
-		&& Emp1.salary == Emp2.salary
-		&& Emp1.index == Emp2.index
-		&& Emp1.ifCharged == Emp2.ifCharged){
-		return true;
-	}
-
-	else return false;
-}
-
-
-Employee& Employee::operator =(Employee& E){
-	string fName;
-	string lName;
-	if (*this == E)
-		return *this;
-	else{
-		E.getName(fName, lName);
-		this->setAllParametrs(fName, lName, E.getPosition(), E.getSenyority(), E.getSalary(),
-			E.getIndex(), E.getIfCharged());
-		return *this;
-	}
-}
-
-Employee operator+(Employee& E1, Employee& E2){
-	Employee sumE;
-	string fName;
-	string lName;
-	E1.getName(fName, lName);
-	sumE.setName(fName, lName);
-	sumE.setPosition(E1.getPosition());
-	sumE.setSenyority(E1.getSenyority());
-	sumE.setSalary(E1.getSalary() + E2.getSalary());
-	sumE.setIndex(E1.getIndex());
-	sumE.setIfCharged(E1.getIfCharged());
-	return &sumE;
-}
-
-ostream& operator <<(ostream& os, const Employee& Emp){
-	string fName;
-	string lName;
-	Emp.getName(fName, lName);
-	cout << "ФИ: " << fName << " " << lName << endl;
-	cout << "Должность: " << Emp.getPosition() << endl;
-	cout << "Стаж: " << Emp.getSenyority() << endl;
-	cout << "Оклад: " << Emp.getSalary() << endl;
-	cout << "Индексация зарплаты: " << Emp.getIndex() << endl;
-	if (Emp.getIfCharged() != 0) cout << "Выплачено." << endl << endl;
-	else cout << "Не выплачено." << endl << endl;
-
-	return os;
-}
-
-void Employee::printOn() const{
-	cout << "ФИ: " << firstName << " " << lastName << endl;
-	cout << "Должность: " << position << endl;
-	cout << "Стаж: " << senyority << endl;
-	cout << "Оклад: " << salary << endl;
-	cout << "Индексация зарплаты: " << index << endl;
-	if (ifCharged != 0) cout << "Выплачено." << endl << endl;
-	else cout << "Не выплачено." << endl << endl;
-}
