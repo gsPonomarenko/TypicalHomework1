@@ -23,6 +23,9 @@ void main() {
   Employee E2("Dmitry", "Semenov", "first officer", 2007, 100000);
   std::cout << E2;
 
+  std::cout << E2.getFirstName() << std::endl;
+  std::cout << E2.getLastName() << std::endl;
+
   Employee E3("Konstantin", "Smolensky", "co-pilot", 2012, 60000, 5.0, true);
 
   E3.getName(&fName, &lName);
@@ -59,14 +62,10 @@ void main() {
   E5.setPosition("flight dispatcher");
   std::cout << E4 << E5;
 
-  Employee E6 = E5 + E3;
-  std::cout << E6;
-
   /** Test of "Department" class */
   std::cout << "Test of \"Department\" class" << std::endl;
   std::string name;
   int numberDepartment;
-  int size;
   int sumSalary;
 
     Department D1;
@@ -87,14 +86,10 @@ void main() {
     std::cout << ex.what() << std::endl;
   }
 
-    D2.getName(&name);
-    D1.setName(name);
-    numberDepartment = D2.getNumberDepartment();
-    D1.setNumberDepartment(numberDepartment);
-    size = D2.getSize();
-    D1.doResize(size);
-    size++;
-    D1.doResize(size);
+  D2.getName(&name);
+  D1.setName(name);
+  numberDepartment = D2.getNumberDepartment();
+  D1.setNumberDepartment(numberDepartment);
 
   D1 = D2 + D1;
   std::cout << D1;
@@ -120,13 +115,16 @@ void main() {
   try {
     Department D4("Pan American", 4, 1);
     D4.printOn();
-    D4.del("Max", "Kabanov");
     D4.del("", "");
+    D4.del("Max", "Kabanov");
     D4.printOn();
   }
   catch (ExNotFound ex) {
     std::cout << ex.what() << std::endl;
   }
+
+  Department D5 = E5 + E3;
+  std::cout << D5;
 
   system("pause");
 }

@@ -7,22 +7,36 @@
 
 class ExNotFound : public std::exception{
  public:
-    ExNotFound();
     ExNotFound(const std::string& fName, const std::string& lName);
-    std::string what();
+    const char* what() const;
 
  protected:
-    std::string firstName;
-    std::string lastName;
+    std::string ErrorMessage;
 };
 
 class ExExist : public std::exception{
  public:
-    ExExist();
     ExExist(const std::string& fName, const std::string& lName);
-    std::string what();
+    const char* what() const;
 
  protected:
-    std::string firstName;
-    std::string lastName;
+    std::string ErrorMessage;
+};
+
+class ExDepartmentToSmall : public std::exception{
+ public:
+    explicit ExDepartmentToSmall(int i);
+    const char* what() const;
+
+ protected:
+    std::string ErrorMessage;
+};
+
+class ExNullPtr : public std::exception{
+ public:
+    ExNullPtr();
+    const char* what() const;
+
+ protected:
+    std::string ErrorMessage;
 };

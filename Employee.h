@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Exception.h"
 #include <iostream>
 #include <memory>
 #include <string>
@@ -27,8 +28,12 @@ class Employee{
                          std::string* pos, int* sen, int* sal,
                          float* in, bool* charged) const;
 
+
+    const std::string& getFirstName() const;
+    const std::string& getLastName() const;
+
     void setPosition(const std::string& pos);
-    std::string getPosition() const;
+    const std::string& getPosition() const;
 
     void setSenyority(int sen);
     int getSenyority() const;
@@ -43,14 +48,13 @@ class Employee{
     bool getIfCharged() const;
 
     friend bool operator ==(const Employee& Emp1, const Employee& Emp2);
+    friend bool operator !=(const Employee& Emp1, const Employee& Emp2);
     Employee& operator =(const Employee& E);
-    friend Employee operator+(const Employee& E1, const Employee& E2);
     friend std::ostream& operator <<(std::ostream& os, const Employee& Emp);
-
-    virtual void setName(const std::string& firstName,
+    void setName(const std::string& firstName,
                          const std::string& lastName);
-    virtual void getName(std::string* fName, std::string* lName) const;
-    virtual void printOn() const;
+    void getName(std::string* fName, std::string* lName) const;
+    void printOn() const;
 
  protected:
     std::string firstName;
