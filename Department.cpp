@@ -42,8 +42,7 @@ int Department::getNumberDepartment() const {
 }
 
 bool Department::add(const Department& Dep) {
-  for (std::list<Employee>::const_iterator itAdd = Dep.begin();
-    itAdd != Dep.end(); itAdd++) {
+  for (auto itAdd = Dep.begin(); itAdd != Dep.end(); itAdd++) {
     if (!has(*itAdd))
       push_back(*itAdd);
   }
@@ -87,7 +86,7 @@ bool Department::del(const std::string& fName, const std::string& lName) {
 
 Employee& Department::get(int i) {
   auto it = begin();
-  if (i < 0) {
+  if (i <= 0) {
     throw ExIndexBelowZero();
   }
   if (i > size()) {
@@ -102,10 +101,10 @@ bool Department::remove(int i) {
   auto it = begin();
   Employee E;
 
-  if (i < 0) {
+  if (i <= 0) {
     throw ExIndexBelowZero();
   }
-  if (i < size()) {
+  if (i > size()) {
     throw ExDepartmentToSmall(i);
   }
 
@@ -130,7 +129,7 @@ bool Department::has(const Employee& Emp) {
 
 void Department::checkCharging() {
   int i = 0;
-  for (const_iterator it = begin(); it != end(); it++) {
+  for (auto it = begin(); it != end(); it++) {
     i += it->getIfCharged();
   }
 
@@ -159,7 +158,7 @@ void Department::printChargingInfo() {
     } else if (ifSomeoneCharged) {
       std::cout << "Pay started. This employyes have got the salary:"
                 << std::endl;
-      for (const_iterator it = begin(); it != end(); it++) {
+      for (auto it = begin(); it != end(); it++) {
         if (it->getIfCharged()) {
           it->getName(&fName, &lName);
           std::cout << fName << " " << lName << std::endl;
@@ -174,7 +173,7 @@ void Department::printChargingInfo() {
 
 void Department::setChargingInfo(bool charged) {
   if (!empty()) {
-    for (iterator it = begin(); it != end(); it++) {
+    for (auto it = begin(); it != end(); it++) {
       it->setIfCharged(charged);
     }
   }
@@ -185,7 +184,7 @@ int Department::getSummarySalary() {
   if (empty()) {
     return 0;
   } else {
-    for (const_iterator it = cbegin(); it != end(); it++) {
+    for (auto it = cbegin(); it != end(); it++) {
       salary += it->getSalary();
     }
   }
@@ -216,8 +215,7 @@ Department Department::operator+(const Department& Dep2) const {
   Department Dep;
 
   Dep.std::list<Employee>::operator = (*this);
-  for (std::list<Employee>::const_iterator it = Dep2.begin();
-    it != Dep2.end(); it++) {
+  for (auto it = Dep2.begin(); it != Dep2.end(); it++) {
     Dep.add(*it);
   }
 
@@ -248,8 +246,7 @@ std::ostream& operator <<(std::ostream& os, const Department& Dep) {
     os << "There are no employees in this department." << std::endl;
   } else {
     os << "Employees:" << std::endl;
-    for (std::list<Employee>::const_iterator it = Dep.begin();
-         it != Dep.end(); it++) {
+    for (auto it = Dep.begin(); it != Dep.end(); it++) {
       os << *it;
     }
   }
