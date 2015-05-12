@@ -40,3 +40,12 @@ class ExNullPtr : public std::exception{
  protected:
     std::string ErrorMessage;
 };
+
+class ExIndexBelowZero : public std::exception{
+ public:
+    ExIndexBelowZero();
+    const char* what() const;
+
+ protected:
+    std::string ErrorMessage;
+};

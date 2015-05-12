@@ -28,8 +28,9 @@ class Employee{
                          std::string* pos, int* sen, int* sal,
                          float* in, bool* charged) const;
 
-
+    void setFirstName(std::string fName);
     const std::string& getFirstName() const;
+    void setLastName(std::string lName);
     const std::string& getLastName() const;
 
     void setPosition(const std::string& pos);
@@ -47,8 +48,8 @@ class Employee{
     void setIfCharged(bool charged);
     bool getIfCharged() const;
 
-    friend bool operator ==(const Employee& Emp1, const Employee& Emp2);
-    friend bool operator !=(const Employee& Emp1, const Employee& Emp2);
+    bool operator ==(const Employee& Emp) const;
+    bool operator !=(const Employee& Emp) const;
     Employee& operator =(const Employee& E);
     friend std::ostream& operator <<(std::ostream& os, const Employee& Emp);
     void setName(const std::string& firstName,

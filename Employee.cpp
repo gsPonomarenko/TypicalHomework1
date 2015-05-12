@@ -93,8 +93,16 @@ void Employee::getAllParametrs(std::string* fName, std::string* lName,
   *charged = ifCharged;
 }
 
+void Employee::setFirstName(std::string fName) {
+  firstName = fName;
+}
+
 const std::string& Employee::getFirstName() const {
   return firstName;
+}
+
+void Employee::setLastName(std::string lName) {
+  lastName = lName;
 }
 
 const std::string& Employee::getLastName() const {
@@ -104,6 +112,7 @@ const std::string& Employee::getLastName() const {
 void Employee::setPosition(const std::string& pos) {
   position = pos;
 }
+
 const std::string& Employee::getPosition() const {
   return position;
 }
@@ -111,6 +120,7 @@ const std::string& Employee::getPosition() const {
 void Employee::setSenyority(int sen) {
   senyority = sen;
 }
+
 int Employee::getSenyority() const {
   return senyority;
 }
@@ -118,6 +128,7 @@ int Employee::getSenyority() const {
 void Employee::setSalary(int sal) {
   salary = sal;
 }
+
 int Employee::getSalary() const {
   return salary;
 }
@@ -125,6 +136,7 @@ int Employee::getSalary() const {
 void Employee::setIndex(float in) {
   index = in;
 }
+
 float Employee::getIndex() const {
   return index;
 }
@@ -132,6 +144,7 @@ float Employee::getIndex() const {
 void Employee::setIfCharged(bool charged) {
   ifCharged = charged;
 }
+
 bool Employee::getIfCharged() const {
   return ifCharged;
 }
@@ -148,28 +161,29 @@ void Employee::getName(std::string* fName, std::string* lName) const {
   *lName = lastName;
 }
 
-bool operator ==(const Employee& Emp1, const Employee& Emp2) {
-  return Emp1.firstName == Emp2.firstName
-      && Emp1.lastName == Emp2.lastName
-      && Emp1.position == Emp2.position
-      && Emp1.senyority == Emp2.senyority
-      && Emp1.salary == Emp2.salary
-      && Emp1.index == Emp2.index
-      && Emp1.ifCharged == Emp2.ifCharged;
+bool Employee::operator ==(const Employee& Emp) const {
+  return this->firstName == Emp.firstName
+      && this->lastName == Emp.lastName
+      && this->position == Emp.position
+      && this->senyority == Emp.senyority
+      && this->salary == Emp.salary
+      && this->index == Emp.index
+      && this->ifCharged == Emp.ifCharged;
 }
 
-bool operator !=(const Employee& Emp1, const Employee& Emp2) {
-  return !(Emp1 == Emp2);
+bool Employee::operator !=(const Employee& Emp) const {
+  return !(*this == Emp);
 }
 
 Employee& Employee::operator =(const Employee& E) {
-  std::string fName;
-  std::string lName;
   if (this != &E) {
-    E.getName(&fName, &lName);
-    this->setAllParametrs(fName, lName, E.getPosition(),
-                          E.getSenyority(), E.getSalary(),
-                          E.getIndex(), E.getIfCharged());
+    firstName = E.getFirstName();
+    lastName = E.getLastName();
+    position = E.getPosition();
+    senyority = E.getSenyority();
+    salary = E.getSalary();
+    index = E.getIndex();
+    ifCharged = E.getIfCharged();
   }
   return *this;
 }

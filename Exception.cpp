@@ -52,3 +52,15 @@ ExNullPtr::ExNullPtr() {
 const char* ExNullPtr::what() const {
   return ErrorMessage.c_str();
 }
+
+/***********************************************************************/
+/************************ Index is below 0 *****************************/
+/***********************************************************************/
+
+ExIndexBelowZero::ExIndexBelowZero() {
+  ErrorMessage = "Index is below zero.";
+}
+
+const char* ExIndexBelowZero::what() const {
+  return ErrorMessage.c_str();
+}

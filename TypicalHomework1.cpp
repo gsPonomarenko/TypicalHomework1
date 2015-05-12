@@ -82,11 +82,11 @@ void main() {
     D2 = D2 + E3;
     std::cout << D2;
   }
-  catch (ExExist ex) {
+  catch (std::exception& ex) {
     std::cout << ex.what() << std::endl;
   }
 
-  D2.getName(&name);
+  name = D2.getName();
   D1.setName(name);
   numberDepartment = D2.getNumberDepartment();
   D1.setNumberDepartment(numberDepartment);
@@ -95,11 +95,11 @@ void main() {
   std::cout << D1;
 
   /**Check if paid*/
-  D1.getChargingInfo();
+  D1.printChargingInfo();
 
   /** All employees have got the salaty.*/
   D1.setChargingInfo(true);
-  D1.getChargingInfo();
+  D1.printChargingInfo();
 
   /** Completly paid*/
   sumSalary = D1.getSummarySalary();
@@ -107,19 +107,20 @@ void main() {
 
   /** Nobody have got the salary*/
   D1.setChargingInfo(false);
-  D1.getChargingInfo();
+  D1.printChargingInfo();
 
-  std::shared_ptr<Department> pD3 (new Department("American Eagle", 3));
-  pD3->printOn();
+  Department D3("American Eagle", 3);
+  D3.printOn();
 
   try {
-    Department D4("Pan American", 4, 1);
+    Department D4("Pan American", 4);
+    D4.add(E1);
     D4.printOn();
-    D4.del("", "");
+    D4.del("Dmitry", "Semenov");
     D4.del("Max", "Kabanov");
     D4.printOn();
   }
-  catch (ExNotFound ex) {
+  catch (std::exception& ex) {
     std::cout << ex.what() << std::endl;
   }
 
